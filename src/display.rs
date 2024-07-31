@@ -38,6 +38,11 @@ where
         self.iface
     }
 
+    pub fn send_command(&mut self, command: Command) -> Result<(), ()> {
+        command.send(&mut self.iface)?;
+        Ok(())
+    }
+
     /// Initialise the display in column mode (i.e. a byte walks down a column of 8 pixels) with
     /// column 0 on the left and column _(display_width - 1)_ on the right.
     pub fn init(&mut self) -> Result<(), DisplayError> {

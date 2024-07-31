@@ -72,6 +72,10 @@ where
         }
     }
 
+    pub fn send_command(&mut self, command: crate::command::Command) -> Result<(), ()> {
+        self.display.send_command(command)
+    }
+
     /// Reset display
     pub fn reset<RST, DELAY>(&mut self, rst: &mut RST, delay: &mut DELAY) -> Result<(), RST::Error>
     where
