@@ -1,7 +1,7 @@
 use crate::display::Display;
 use display_interface::{DisplayError, WriteOnlyDataCommand};
-use hal::delay::DelayNs;
-use hal::digital::OutputPin;
+use hal::blocking::delay::DelayMs;
+use hal::digital::v2::OutputPin;
 
 use crate::mode::displaymode::DisplayModeTrait;
 use crate::properties::DisplayRotation;
@@ -72,7 +72,7 @@ where
         }
     }
 
-    pub fn send_command(&mut self, command: crate::command::Command) -> Result<(), ()> {
+    pub fn send_command(&mut self, command: crate::command::Command) -> Result<(), DisplayError> {
         self.display.send_command(command)
     }
 
@@ -80,7 +80,7 @@ where
     pub fn reset<RST, DELAY>(&mut self, rst: &mut RST, delay: &mut DELAY) -> Result<(), RST::Error>
     where
         RST: OutputPin,
-        DELAY: DelayNs,
+        DELAY: DelayMs<u8>,
     {
         rst.set_high()?;
         delay.delay_ms(1);

@@ -38,7 +38,7 @@ where
         self.iface
     }
 
-    pub fn send_command(&mut self, command: Command) -> Result<(), ()> {
+    pub fn send_command(&mut self, command: Command) -> Result<(), DisplayError> {
         command.send(&mut self.iface)?;
         Ok(())
     }
